@@ -1,0 +1,90 @@
+.explore-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 50px; /* Add padding for inner spacing */
+    background-color: #fff; /* White background for a clean look */
+    border-radius: 12px; /* Rounded corners for a softer appearance */
+    padding: 0 150px; /* Space on the left and right */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for subtle depth */
+    /* max-width: 800px; Limit width for better readability */
+    /* Center container horizontally */
+}
+.explore-menu h1 {
+    color: #333; /* Darker color for better contrast */
+    font-weight: 600; /* Slightly bolder font weight for emphasis */
+    font-size: 2.5rem; /* Larger font size for prominence */
+    text-align: center; /* Center-align heading text */
+    margin: 0; /* Remove default margin */
+  
+    padding: 10px 0; /* Vertical padding for spacing around the heading */
+}
+.explore-menu-text{
+    color: #666; /* Soft color for paragraph text */
+    font-size: 1.2rem; /* Increase font size for readability */
+    line-height: 1.6; /* Increase line height for better text spacing */
+    text-align: center; /* Center-align paragraph text */
+    padding: 0 100px;
+    margin: 0; /* Remove default margin */
+}
+.explore-menu-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 0 100px; /* Adjust padding as needed */
+    margin: 20px 0;
+    overflow-x: auto; /* Ensure scrolling if content overflows */
+    white-space: nowrap; /* Prevent line breaks in flex items */
+    scroll-behavior: smooth; /* Optional: smooth scrolling */
+}
+.explore-menu-list::-webkit-scrollbar{
+    display: none;
+}
+.explore-menu-list-item img{
+    width: 7.5vw;
+    min-width: 80px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+.explore-menu-list-item .active{
+    border: 4px solid tomato;
+    padding: 2px;
+}
+.explore-menu-list-item p{
+    margin-top: 10px;
+    text-align:center;
+    color: #747474;
+    font-size: max(1.4vw,16px);
+    cursor: pointer;
+}
+.explore-menu hr{
+    margin: 10px 0px;
+    height: 2px;
+    background-color: #E2E2E2;
+    border: none;
+}
+
+@media (max-width: 480px) {
+    .explore-menu {
+        padding: 10px; /* Further reduce padding for very small screens */
+        padding: 0 10px; /* Space on the left and right */
+    }
+    .explore-menu h1 {
+        font-size: 1.5rem; /* Further reduce font size */
+    }
+    .explore-menu-text {
+        font-size: 0.9rem; /* Further reduce font size */
+        padding: 0 10px; /* Further reduce padding */
+    }
+    .explore-menu-list {
+        gap: 10px; /* Adjust gap between items */
+    }
+    .explore-menu-list-item img {
+        width: 50px; /* Further adjust size of images */
+    }
+    .explore-menu-list-item p {
+        font-size: 12px; /* Further adjust font size */
+    }
+}

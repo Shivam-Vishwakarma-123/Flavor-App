@@ -1,0 +1,94 @@
+.header {
+    height: 34vw;
+    width: calc(100% - 80px); /* Adjust to account for extra space on the left and right */
+    margin: 30px auto;
+    background: url('https://files.oaiusercontent.com/file-ADVFvCuAX8yDBGqeK4VQWBkf?se=2024-09-01T07%3A38%3A03Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Da931ccd1-7323-433f-ab8b-db70613bbfc0.webp&sig=4bNQnUH2teoLdea/mrgv1hUzZKTgZ8M88ZWbFIYPshs%3D') no-repeat center center;
+    background-size: cover; /* Ensure the image covers the header area */
+    position: relative;
+    border-radius: 20px; /* Round the corners of the header */
+    overflow: hidden; /* Ensure the image respects the border radius */
+    padding: 0 0px; /* Add space on the left and right sides */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.header-contents {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5vw;
+    max-width: 50%;
+    bottom: 10%;
+    left: 6vw;
+    animation: fadeIn 3s;
+}
+
+.header-contents h2 {
+    font-weight: 500;
+    color: white;
+    font-size: max(4.5vw, 22px);
+}
+
+.header-contents p {
+    color: white;
+    font-size: 1vw;
+}
+
+.header-contents button {
+    border: none;
+    color: #747474;
+    font-weight: 500;
+    padding: 1vw 2.3vw;
+    background: white;
+    font-size: max(1vw, 13px);
+    border-radius: 50px;
+}
+
+
+
+.header-contents{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vw;
+    max-width: 50%;
+    bottom: 10%;
+    left: 6vw;
+    animation: fadeIn 3s;
+}
+.header-contents h2{
+    font-weight:500;
+    color: white;
+    font-size: max(4.5vw,22px);
+}
+.header-contents p{
+    color: white;
+    font-size: 1vw;
+}
+.header-contents button{
+    border: none;
+    color: #747474;
+    font-weight: 500;
+    padding: 1vw 2.3vw;
+    background: white;
+    font-size: max(1vw,13px);
+    border-radius: 50px;
+}
+@media (max-width:1050px) {
+   
+    .header-contents{
+        max-width: 45%;
+    }
+}
+@media(max-width:750px){
+    .header-contents{
+        max-width: 55%;
+    }
+    .header-contents p{
+       display: none;
+    }
+    .header-contents button{
+        padding: 2vw 4vw;
+    }
+}
