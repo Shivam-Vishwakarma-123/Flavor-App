@@ -2,7 +2,7 @@
     height: 34vw;
     width: calc(100% - 80px); /* Adjust to account for extra space on the left and right */
     margin: 30px auto;
-    background: url('https://files.oaiusercontent.com/file-ADVFvCuAX8yDBGqeK4VQWBkf?se=2024-09-01T07%3A38%3A03Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Da931ccd1-7323-433f-ab8b-db70613bbfc0.webp&sig=4bNQnUH2teoLdea/mrgv1hUzZKTgZ8M88ZWbFIYPshs%3D') no-repeat center center;
+    background: url('imagecopy.png');
     background-size: cover; /* Ensure the image covers the header area */
     position: relative;
     border-radius: 20px; /* Round the corners of the header */
