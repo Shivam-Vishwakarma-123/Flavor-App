@@ -3,6 +3,8 @@
     width: calc(100% - 80px); /* Adjust to account for extra space on the left and right */
     margin: 30px auto;
     background: url('imagecopy.png');
+    /* added background
+     */
     background-size: cover; /* Ensure the image covers the header area */
     position: relative;
     border-radius: 20px; /* Round the corners of the header */
