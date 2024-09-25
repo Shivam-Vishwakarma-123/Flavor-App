@@ -6,15 +6,20 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';  // Import the CSS
 
 const Cart = () => {
-  const { cartItem, food_list, removeFromCart, subtotal, deliveryFee, total, url } = useContext(StoreContext);
+  const { cartItem, food_list, removeFromCart, subtotal, deliveryFee, total, url, token } = useContext(StoreContext); // Added token from context
   const navigate = useNavigate();
 
   // Function to display error toast
   const handleCheckout = () => {
-    if (subtotal === 0) {
+    if (!token) {
+      toast.error("Please sign in to place an order!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } else if (subtotal === 0) {
       toast.error("Please select an item!", {
         position: "top-right",
-        autoClose: 3000,  // Time in milliseconds before auto-close
+        autoClose: 3000,
       });
     } else {
       navigate("/order");
