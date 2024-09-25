@@ -2,14 +2,29 @@ import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';  // Import the CSS
 
 const Cart = () => {
-  const { cartItem, food_list, removeFromCart, subtotal, deliveryFee, total,url} =
-    useContext(StoreContext);
+  const { cartItem, food_list, removeFromCart, subtotal, deliveryFee, total, url } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  // Function to display error toast
+  const handleCheckout = () => {
+    if (subtotal === 0) {
+      toast.error("Please select an item!", {
+        position: "top-right",
+        autoClose: 3000,  // Time in milliseconds before auto-close
+      });
+    } else {
+      navigate("/order");
+    }
+  };
 
   return (
     <div className="cart">
+      <ToastContainer /> {/* ToastContainer component to display the toast messages */}
+      
       <div className="cart-items">
         <div className="cart-items-title">
           <p>Items</p>
@@ -26,7 +41,7 @@ const Cart = () => {
             return (
               <React.Fragment key={items._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={url+"/images/"+items.image} alt={items.name} />
+                  <img src={url + "/images/" + items.image} alt={items.name} />
                   <p>{items.name}</p>
                   <p>₹{items.price}</p>
                   <p>{cartItem[items._id]}</p>
@@ -60,7 +75,7 @@ const Cart = () => {
               <b>₹{subtotal === 0 ? 0 : total}</b>
             </div>
           </div>
-          <button onClick={() => navigate("/order")}>
+          <button onClick={handleCheckout}>
             Proceed To Checkout
           </button>
         </div>
