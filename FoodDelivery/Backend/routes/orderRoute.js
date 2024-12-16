@@ -1,6 +1,6 @@
 import express from "express"
 import authMiddleware from "../middleware/auth.js"
-import { placeOrder, userOrders, verifyOrder ,listOrders, updateStatus,placeOrderCod} from "../controller/orderController.js";
+import { placeOrder, userOrders, verifyOrder ,listOrders, updateStatus,placeOrderCod,deleteOrder} from "../controller/orderController.js";
 
 
 // creating router using express
@@ -12,4 +12,5 @@ orderRouter.post("/userorder",authMiddleware,userOrders);
 orderRouter.get("/list",listOrders);
 orderRouter.post("/status",updateStatus);
 orderRouter.post("/placecod",authMiddleware,placeOrderCod);
+orderRouter.delete("/delete",  deleteOrder);
 export default orderRouter;

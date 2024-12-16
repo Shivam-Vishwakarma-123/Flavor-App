@@ -8,28 +8,45 @@ const Order = ({ url }) => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
-    // calling api
     const response = await axios.get(url + "/api/order/list");
     if (response.data.success) {
-      console.log(response.data.data);
       setOrders(response.data.data.reverse());
     } else {
       toast.error("Error");
     }
   };
+
   const statusHandler = async (event, orderId) => {
-    console.log(event, orderId);
-    const response = await axios.post(url+"/api/order/status", {
+    const response = await axios.post(url + "/api/order/status", {
       orderId,
-      status: event.target.value
-    })
+      status: event.target.value,
+    });
     if (response.data.success) {
       await fetchAllOrders();
     }
-  }
+  };
+
+  const deleteOrder = async (orderId) => {
+    try {
+      const response = await axios.delete(url + "/api/order/delete", {
+        data: { orderId },
+      });
+      if (response.data.success) {
+        toast.success("Order deleted successfully!");
+        await fetchAllOrders();
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      toast.error("Error deleting order");
+    }
+  };
+
   useEffect(() => {
     fetchAllOrders();
   }, []);
+
   return (
     <div className="order add">
       <h3>Order Page</h3>
@@ -76,6 +93,12 @@ const Order = ({ url }) => {
               <option value="Out for delivery">Out for delivery</option>
               <option value="Delivered">Delivered</option>
             </select>
+            <button
+              className="delete-button"
+              onClick={() => deleteOrder(order._id)}
+            >
+              X
+            </button>
           </div>
         ))}
       </div>

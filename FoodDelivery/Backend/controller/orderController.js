@@ -124,5 +124,40 @@ const verifyOrder = async (req, res) => {
     }
 
 }
+const deleteOrder = async (req, res) => {
+    try {
+      const { orderId } = req.body; // Ensure orderId is sent in the body
+      if (!orderId) {
+        return res.status(400).json({ success: false, message: "Order ID required" });
+      }
+  
+      // Find the order by ID
+      const order = await orderModel.findById(orderId);
+  
+      if (!order) {
+        return res.status(404).json({ success: false, message: "Order not found" });
+      }
+  
+      console.log("Order Status:", order.status); // Debugging log for status
+  
+      // Check if the order is delivered
+      if (order.status !== "Delivered") {
+        return res.status(400).json({
+          success: false,
+          message: `Order cannot be deleted. Current status: ${order.status}`,
+        });
+      }
+  
+      // Delete the order if it is delivered
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ success: true, message: "Order deleted successfully" });
+  
+    } catch (error) {
+      console.error("Error deleting order:", error);
+      res.status(500).json({ success: false, message: "Error deleting order" });
+    }
+  };
+  
+  
 
-export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod }
+export { placeOrder, listOrders, userOrders, updateStatus, verifyOrder, placeOrderCod ,deleteOrder}
