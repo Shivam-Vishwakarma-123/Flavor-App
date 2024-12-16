@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
     const user = await userModel.findOne({ email });
 
     if (!user) {
-      return res.json({ success: false, message: "User does not exist" });
+      return res.json({ success: false, message: "Something Went Wrong!" });
     }
     // if user is available match the user password with the stored passwordi.e user password
 
