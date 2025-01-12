@@ -1,7 +1,9 @@
-import foodModel from "../models/foodmodel.js";
+import foodModel from "../models/foodModel.js";
 import fs from "fs"; //import file sytem from fs which is already prebuild in the nodejs
 
+// added food modl
 // add food
+
 // it is a controller function and we will create route using that function in our route file
 const addFood = async (req, res) => {
   try {
