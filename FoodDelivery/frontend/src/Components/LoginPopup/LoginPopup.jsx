@@ -4,7 +4,8 @@ import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/Context";
 import axios from "axios";
 const LoginPopup = ({ setShowLogin }) => {
-  const { url, setToken } = useContext(StoreContext);
+  const { setToken } = useContext(StoreContext);
+  const url="https://flavor-app.onrender.com";
   const [currentState, setCurrentState] = useState("Login");
   const [data, setData] = useState({
     name: "",
