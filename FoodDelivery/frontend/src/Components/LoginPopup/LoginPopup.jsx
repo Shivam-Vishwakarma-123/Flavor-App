@@ -3,65 +3,71 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/Context";
 import axios from "axios";
+
 const LoginPopup = ({ setShowLogin }) => {
   const { setToken } = useContext(StoreContext);
-  const url="https://flavor-app.onrender.com";
+  const url = "https://flavor-app.onrender.com"; // Base API URL
   const [currentState, setCurrentState] = useState("Login");
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
+
   const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+    const { name, value } = event.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   const onLogin = async (event) => {
     event.preventDefault();
 
-    let newUrl = url;
+    let apiUrl = url;
     if (currentState === "Login") {
-      // append login api
-      newUrl += "/api/user/login";
+      apiUrl += "/api/user/login";
     } else {
-      // append register api
-      newUrl += "/api/user/register";
+      apiUrl += "/api/user/register";
     }
-    const response = await axios.post(newUrl, data);
-    if (response.data.success) {
-      setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      setShowLogin(false);
-    } else {
-      alert(response.data.message);
+
+    try {
+      const response = await axios.post(apiUrl, data);
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setShowLogin(false); // Close the login popup
+        alert("Success: " + response.data.message);
+      } else {
+        alert("Error: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      if (error.response) {
+        alert("Error: " + error.response.data.message || "Something went wrong!");
+      } else {
+        alert("Error: Unable to connect to the server.");
+      }
     }
   };
 
   return (
     <div className="login-popup">
-      <form onSubmit={onLogin} className="login-popup-container" action="">
+      <form onSubmit={onLogin} className="login-popup-container">
         <div className="login-popup-title">
           <h2>{currentState}</h2>
-          <img
-            onClick={() => setShowLogin(false)}
-            src={assets.cross_icon}
-          ></img>
+          <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="Close" />
         </div>
         <div className="login-popup-inputs">
-          {currentState === "Login" ? (
-            <></>
-          ) : (
+          {currentState === "Sign Up" && (
             <input
               name="name"
               onChange={onChangeHandler}
               value={data.name}
               type="text"
-              placeholder="Your name"
+              placeholder="Your Name"
               required
             />
           )}
-
           <input
             name="email"
             onChange={onChangeHandler}
@@ -93,7 +99,7 @@ const LoginPopup = ({ setShowLogin }) => {
           </p>
         ) : (
           <p>
-            Already have a account?{" "}
+            Already have an account?{" "}
             <span onClick={() => setCurrentState("Login")}>Click here</span>
           </p>
         )}
