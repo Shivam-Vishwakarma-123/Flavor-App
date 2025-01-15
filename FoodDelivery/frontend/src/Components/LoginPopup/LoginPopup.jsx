@@ -3,6 +3,8 @@ import "./LoginPopup.css";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../Context/Context";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginPopup = ({ setShowLogin }) => {
   const { setToken } = useContext(StoreContext);
@@ -36,22 +38,35 @@ const LoginPopup = ({ setShowLogin }) => {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         setShowLogin(false); // Close the login popup
-        alert("Success: " + response.data.message);
+        toast.success(response.data.message || "Success!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       } else {
-        alert("Error: " + response.data.message);
+        toast.error(response.data.message || "An error occurred.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.error("API Error:", error);
       if (error.response) {
-        alert("Error: " + error.response.data.message || "Something went wrong!");
+        toast.error(error.response.data.message || "Something went wrong!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       } else {
-        alert("Error: Unable to connect to the server.");
+        toast.error("Unable to connect to the server.", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
     }
   };
 
   return (
     <div className="login-popup">
+      <ToastContainer />
       <form onSubmit={onLogin} className="login-popup-container">
         <div className="login-popup-title">
           <h2>{currentState}</h2>
