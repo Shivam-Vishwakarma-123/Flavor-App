@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { assets, url } from "../../assets/assets";
 
-const Order = ({ url }) => {
+const Order = (/*{ url }*/) => {
   const [orders, setOrders] = useState([]);
-
+  const url="https://flavor-app.onrender.com";
   const fetchAllOrders = async () => {
     const response = await axios.get(url + "/api/order/list");
     if (response.data.success) {
