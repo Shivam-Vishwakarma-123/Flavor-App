@@ -1,0 +1,6 @@
+html {
+    transform: scale(0.9); /* Scale down to 90% */
+    transform-origin: top left; /* Keeps scaling consistent from the top-left corner */
+  }
+  
+  // added 
