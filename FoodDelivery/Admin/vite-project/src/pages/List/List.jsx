@@ -21,6 +21,7 @@ const List = ({url}) => {
   // ye food ko remove kar rha
   const removeFood = async (foodId) => {
     // api call
+    console.log(`${url}/api/food/remove`);
     const response = await axios.post(`${url}/api/food/remove`, {
       id: foodId,
     });
