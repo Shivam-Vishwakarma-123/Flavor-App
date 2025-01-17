@@ -35,6 +35,7 @@ const List = ({url}) => {
 
   useEffect(() => {
     fetchList();
+    console.log(`${url}/api/food/remove`);
   }, []);
 
   return (
