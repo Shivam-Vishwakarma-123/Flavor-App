@@ -1,41 +1,49 @@
 import React, { useEffect, useState } from "react";
 import "./List.css";
-import { url, currency } from "../../assets/assets";
-import axios from "axios";
 import { toast } from "react-toastify";
+import axios from "axios";
 
-const List = ({url}) => {
-//   const url = "http://localhost:4000";
+const List = ({ url }) => {
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
-    const response = await axios.get(`${url}/api/food/list`);
-    console.log(response.data);
-    // data lete aaay resposnse me through api
-    if (response.data.success) {
-      setList(response.data.data);
-    } else {
-      toast.error("Error");
+    console.log("API Call (fetchList):", `${url}/api/food/list`);
+    try {
+      const response = await axios.get(`${url}/api/food/list`);
+      console.log("Response Data (fetchList):", response.data);
+
+      if (response.data.success) {
+        setList(response.data.data);
+      } else {
+        toast.error("Error");
+      }
+    } catch (error) {
+      console.error("Error fetching list:", error);
+      toast.error("Error fetching list");
     }
   };
-  // ye food ko remove kar rha
+
   const removeFood = async (foodId) => {
-    // api call
-    console.log(`${url}/api/food/remove`);
-    const response = await axios.post(`${url}/api/food/remove`, {
-      id: foodId,
-    });
-    await fetchList();
-    if (response.data.success) {
-      toast.success(response.data.message);
-    } else {
-      toast.error("Error");
+    console.log("API Call (removeFood):", `${url}/api/food/remove`);
+    try {
+      const response = await axios.post(`${url}/api/food/remove`, { id: foodId });
+      console.log("Response Data (removeFood):", response.data);
+
+      await fetchList(); // Refresh the list after removing food
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+      } else {
+        toast.error("Error");
+      }
+    } catch (error) {
+      console.error("Error removing food:", error);
+      toast.error("Error removing food");
     }
   };
 
   useEffect(() => {
     fetchList();
-    console.log(`${url}/api/food/remove`);
   }, []);
 
   return (
@@ -49,23 +57,17 @@ const List = ({url}) => {
           <b>Price</b>
           <b>Action</b>
         </div>
-        {list.map((item, index) => {
-          return (
-            <div key={index} className="list-table-format">
-              <img src={`${url}/images/` + item.image} alt="" />
-              {/* item.image is image name  */}
-              <p>{item.name}</p>
-              <p>{item.category}</p>
-              <p>
-                {currency}
-                {item.price}
-              </p>
-              <p className="cursor" onClick={() => removeFood(item._id)}>
-                x
-              </p>
-            </div>
-          );
-        })}
+        {list.map((item, index) => (
+          <div key={index} className="list-table-format">
+            <img src={`${url}/images/` + item.image} alt="" />
+            <p>{item.name}</p>
+            <p>{item.category}</p>
+            <p>{item.price}</p>
+            <p className="cursor" onClick={() => removeFood(item._id)}>
+              x
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );
